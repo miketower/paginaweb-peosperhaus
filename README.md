@@ -52,7 +52,7 @@ y guarda una solicitud con estado `pendiente`. No crea cuentas ni envía correos
 
    El servidor estático de Python no ejecuta PHP. En producción usa un servidor
    con PHP, HTTPS y errores ocultos al visitante (`display_errors=Off`). Publica
-   únicamente `index.html`, `logo-prosperhaus.png`, `formulario.js` y `procesar.php`; mantén el
+   únicamente `index.html`, `logo-prosperhaus.png`, `formulario.js`, `animaciones.js` y `procesar.php`; mantén el
    script SQL y los documentos fuera de la carpeta pública.
 
 El formulario se envía sin salir de la página y muestra un diálogo de confirmación

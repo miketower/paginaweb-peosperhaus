@@ -124,6 +124,66 @@
         .solicitud-dialog button:focus-visible { outline: 3px solid #eab308; outline-offset: 4px; }
         #formulario-incorporacion button:disabled { opacity: .65; cursor: wait; }
 
+        #inicio {
+            position: relative;
+            isolation: isolate;
+            overflow: clip;
+        }
+        #inicio::before {
+            content: "";
+            position: absolute;
+            inset: -6rem -2rem;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 85% 15%, #eab30820, transparent 55%),
+                        radial-gradient(ellipse at 10% 85%, #eab30810, transparent 45%);
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            [data-reveal].reveal-pending {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            [data-reveal].reveal-visible {
+                transition: opacity .65s ease-out, transform .65s cubic-bezier(.22, 1, .36, 1);
+                transition-delay: var(--reveal-delay, 0ms);
+            }
+            .motion-card {
+                transition: box-shadow .25s ease, translate .25s ease;
+            }
+            main a, main button[type="submit"] {
+                transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+            }
+        }
+
+        @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+            .motion-card:hover {
+                translate: 0 -5px;
+                box-shadow: 0 18px 40px -20px #11182755;
+            }
+        }
+
+        @media print {
+            [data-reveal].reveal-pending {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @supports (animation-timeline: scroll()) {
+            @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+                #inicio::before {
+                    animation: luz-parallax linear both;
+                    animation-timeline: scroll(root block);
+                    animation-range: 0px 100vh;
+                }
+                @keyframes luz-parallax {
+                    from { transform: translateY(0); }
+                    to { transform: translateY(80px); }
+                }
+            }
+        }
+
         @media (prefers-reduced-motion: no-preference) {
             html {
                 scroll-behavior: smooth;
@@ -169,7 +229,7 @@
                 PROSPERHAUS es una metodología, una comunidad, una plataforma de negocios y un movimiento para convertir el potencial de las personas en prosperidad compartida.
             </p>
             
-            <div class="grid md:grid-cols-2 gap-10 text-left mt-12 bg-gray-50 p-8 rounded-lg">
+            <div data-reveal class="grid md:grid-cols-2 gap-10 text-left mt-12 bg-gray-50 p-8 rounded-lg">
                 <div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-3">El esfuerzo no siempre alcanza</h2>
                     <p class="text-gray-600 mb-4">Trabajar más no siempre significa avanzar mejor. Muchas personas tienen talento, ideas y determinación, pero sus recursos, relaciones y oportunidades permanecen dispersos. Sin una red estratégica, acompañamiento y un sistema que conecte capacidades con oportunidades, el esfuerzo puede quedarse corto.</p>
@@ -180,7 +240,7 @@
                 </div>
             </div>
             
-            <div class="mt-12">
+            <div data-reveal class="mt-12">
                 <h2 class="text-xl font-bold text-gray-900 mb-2">¿Listo para activar la prosperidad que ya eres?</h2>
                 <p class="text-gray-600 mb-6">Reconoce lo que ya eres. Ponlo al servicio de una comunidad. Multiplícalo en unidad.</p>
                 <a href="#prosperhaus" class="inline-block bg-gray-900 text-white font-medium px-8 py-3 rounded hover:bg-gray-800 transition">
@@ -196,7 +256,7 @@
         <div class="max-w-6xl mx-auto px-4">
             
             <!-- Declaración de Identidad -->
-            <div class="mb-16 bg-white p-8 rounded-lg shadow-sm border-l-4 border-yellow-500">
+            <div data-reveal class="mb-16 bg-white p-8 rounded-lg shadow-sm border-l-4 border-yellow-500">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Nuestra declaración de identidad</h2>
                 <p class="text-xl text-gray-600 italic mb-6">"Soy prosperidad en unidad"</p>
                 <div class="grid md:grid-cols-3 gap-6">
@@ -208,21 +268,21 @@
             
             <!-- Los 4 Pilares -->
             <div class="mb-16">
-                <h3 class="text-2xl font-bold text-center mb-8">Los cuatro pilares</h3>
+                <h3 data-reveal class="text-2xl font-bold text-center mb-8">Los cuatro pilares</h3>
                 <div class="grid md:grid-cols-4 gap-6">
-                    <div class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500">
+                    <div data-reveal class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500 motion-card">
                         <h4 class="text-lg font-bold mb-2">CONEXIÓN</h4>
                         <p class="text-sm text-gray-600">Primero contigo y después con las demás personas. Reconocer quién eres, qué sabes hacer y dónde puedes aportar.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500">
+                    <div data-reveal class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500 motion-card">
                         <h4 class="text-lg font-bold mb-2">DAR</h4>
                         <p class="text-sm text-gray-600">Compartir valor, conocimiento, apoyo y oportunidades. Dar es sembrar valor; la reciprocidad es una consecuencia, no una táctica.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500">
+                    <div data-reveal class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500 motion-card">
                         <h4 class="text-lg font-bold mb-2">UNIDAD ESTRATÉGICA</h4>
                         <p class="text-sm text-gray-600">Alinear talentos, activos, recursos, relaciones y sueños alrededor de proyectos y oportunidades reales.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500">
+                    <div data-reveal class="bg-white p-6 rounded-lg shadow-sm text-center border-t-4 border-yellow-500 motion-card">
                         <h4 class="text-lg font-bold mb-2">PROSPERIDAD INTEGRAL</h4>
                         <p class="text-sm text-gray-600">Construir riqueza espiritual, mental y material, y compartirla para contribuir al crecimiento de la comunidad.</p>
                     </div>
@@ -231,7 +291,7 @@
 
             <!-- Plan Unidad 10X & Pacto de Unidad -->
             <div class="grid md:grid-cols-2 gap-10">
-                <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div data-reveal class="bg-white p-8 rounded-lg shadow-sm motion-card">
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">Plan Unidad 10X</h3>
                     <p class="text-gray-600 mb-4">¿Qué podría cambiar si tus ingresos, relaciones, talentos y oportunidades se desarrollaran dentro del ecosistema correcto?</p>
                     <p class="text-gray-600 mb-6">Invita a construir una visión de crecimiento a tres años. Propone organizar el talento alrededor de una meta, trabajar con método, activar el capital relacional y ejecutar en unidad.</p>
@@ -240,7 +300,7 @@
                         <span class="text-gray-500 text-sm">[ IMAGEN EN DISEÑO: PLAN UNIDAD 10X ]</span>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div data-reveal class="bg-white p-8 rounded-lg shadow-sm motion-card">
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">El Pacto de Unidad</h3>
                     <p class="text-gray-600 mb-4">Expresa identidad, pertenencia y responsabilidad. Quien lo asume declara que su crecimiento se activa al servir, conectar y construir con otras personas.</p>
                     <p class="text-gray-600 mb-6">Se compromete a vivir los cuatro pilares y reconoce la importancia de aportar al fondo comunitario como expresión concreta de unidad.</p>
@@ -258,7 +318,7 @@
     <section id="soluciones" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
+                <div data-reveal class="md:w-1/2">
                     <h2 class="text-3xl font-bold text-gray-900 mb-2">Soluciones y Servicios</h2>
                     <h3 class="text-2xl text-yellow-500 font-bold mb-4">FOR Human Capital</h3>
                     <p class="text-gray-600 mb-6">
@@ -272,7 +332,7 @@
                     </ul>
                     <a href="https://forhumancapital.mx/soluciones-capital-humano.html" target="_blank" class="inline-block mt-8 text-yellow-600 font-bold hover:underline">Visita FOR Human Capital &rarr;</a>
                 </div>
-                <div class="md:w-1/2 bg-gray-100 p-10 rounded-lg text-center">
+                <div data-reveal class="md:w-1/2 bg-gray-100 p-10 rounded-lg text-center motion-card">
                     <h3 class="text-xl font-bold mb-4">Encuentra la solución para tu empresa</h3>
                     <p class="text-gray-600 italic">"Conoce el portafolio completo de servicios y descubre cómo fortalecer la gestión de tu capital humano."</p>
                 </div>
@@ -284,7 +344,7 @@
     <!--[cite: 22, 23] -->
     <section id="comunidad" class="py-20 bg-gray-900 text-white">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-12">
+            <div data-reveal class="text-center mb-12">
                 <h2 class="text-3xl font-bold mb-4">Comunidad Prosper</h2>
                 <p class="text-gray-400 max-w-2xl mx-auto">
                     PROSPERHAUS se organiza como una tribu de crecimiento, activando relaciones, generando negocios, formándose continuamente en liderazgo y multiplicando la prosperidad.
@@ -292,20 +352,20 @@
             </div>
             
             <div class="mb-12">
-                <div class="bg-gray-800 h-64 w-full flex items-center justify-center rounded border-2 border-dashed border-gray-600 mb-8 max-w-3xl mx-auto">
+                <div data-reveal class="bg-gray-800 h-64 w-full flex items-center justify-center rounded border-2 border-dashed border-gray-600 mb-8 max-w-3xl mx-auto">
                     <span class="text-gray-400 text-sm">[ IMAGEN EN DISEÑO: LOS 4 NIVELES ]</span>
                 </div>
                 
                 <h3 class="text-2xl font-bold text-center mb-6 text-yellow-500">Vamos creciendo a través de niveles:</h3>
                 <div class="grid md:grid-cols-4 gap-4 text-center">
-                    <div class="bg-gray-800 p-4 rounded"><strong class="block text-yellow-500">Nivel 1</strong> Personas que conocen la visión y se acercan al movimiento.</div>
-                    <div class="bg-gray-800 p-4 rounded"><strong class="block text-yellow-500">Nivel 2</strong> Quienes la practican y conectan con propósito.</div>
-                    <div class="bg-gray-800 p-4 rounded"><strong class="block text-yellow-500">Nivel 3</strong> Prospers que acceden a la metodología y activan el ecosistema.</div>
-                    <div class="bg-gray-800 p-4 rounded"><strong class="block text-yellow-500">Nivel 4</strong> Los Embajadores. Acompañan, forman, activan y sostienen la cultura.</div>
+                    <div data-reveal class="bg-gray-800 p-4 rounded motion-card"><strong class="block text-yellow-500">Nivel 1</strong> Personas que conocen la visión y se acercan al movimiento.</div>
+                    <div data-reveal class="bg-gray-800 p-4 rounded motion-card"><strong class="block text-yellow-500">Nivel 2</strong> Quienes la practican y conectan con propósito.</div>
+                    <div data-reveal class="bg-gray-800 p-4 rounded motion-card"><strong class="block text-yellow-500">Nivel 3</strong> Prospers que acceden a la metodología y activan el ecosistema.</div>
+                    <div data-reveal class="bg-gray-800 p-4 rounded motion-card"><strong class="block text-yellow-500">Nivel 4</strong> Los Embajadores. Acompañan, forman, activan y sostienen la cultura.</div>
                 </div>
             </div>
 
-            <div class="bg-white text-gray-900 p-8 rounded-lg max-w-4xl mx-auto">
+            <div data-reveal class="bg-white text-gray-900 p-8 rounded-lg max-w-4xl mx-auto">
                 <h3 class="text-2xl font-bold mb-3">Qué significa ser Prosper</h3>
                 <p class="mb-4">Ser Prosper no significa únicamente pertenecer a una comunidad. Significa entrar en un pacto de unidad estratégica, propósito compartido y crecimiento mutuo.</p>
                 <p>Un Prosper reconoce que su capital relacional, sus talentos y sus oportunidades pueden multiplicarse cuando se ponen al servicio de algo más grande que sí mismo. Practica los cuatro pilares, construye relaciones con propósito y contribuye al crecimiento compartido.</p>
@@ -319,7 +379,7 @@
         <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12">
             
             <!-- Eventos -->
-            <div>
+            <div data-reveal>
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Eventos y Experiencias</h2>
                 <p class="text-gray-600 mb-6">La unidad se fortalece cuando pasa de la intención a la experiencia. Los encuentros PROSPERHAUS ofrecen espacios para conectar con propósito, compartir conocimiento, descubrir oportunidades y construir relaciones.</p>
                 <div class="bg-white p-6 rounded shadow-sm border-l-4 border-yellow-500">
@@ -330,7 +390,7 @@
             </div>
             
             <!-- Biblioteca (Conoce más) -->
-            <div id="conoce-mas">
+            <div id="conoce-mas" data-reveal>
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Biblioteca de Contenidos</h2>
                 <p class="text-gray-600 mb-6">Conoce las ideas, herramientas y experiencias que dan vida a PROSPERHAUS. Explora materiales para comprender los cuatro pilares y reflexionar sobre tu visión de crecimiento.</p>
                 <div class="bg-white p-6 rounded shadow-sm border-l-4 border-gray-900">
@@ -350,7 +410,7 @@
             <h2 class="text-4xl font-bold mb-4">¿Estás listo para crecer 10x?</h2>
             <p class="text-gray-900 font-medium mb-10">Si compartes la visión de conectar, dar, construir en unidad y activar una prosperidad integral, da el siguiente paso. Cuéntanos quién eres, qué buscas desarrollar y qué valor te gustaría aportar a la comunidad.</p>
             
-            <form id="formulario-incorporacion" action="procesar.php" method="POST" class="bg-white rounded-lg p-8 text-left text-gray-800 shadow-xl">
+            <form data-reveal id="formulario-incorporacion" action="procesar.php" method="POST" class="bg-white rounded-lg p-8 text-left text-gray-800 shadow-xl">
                 <div class="mb-4">
                     <label class="block text-sm font-bold mb-1">Nombre completo *</label>
                     <input type="text" name="nombre_completo" required class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-yellow-500 bg-gray-50">
@@ -392,6 +452,7 @@
         </form>
     </dialog>
     <script src="formulario.js" defer></script>
+    <script src="animaciones.js" defer></script>
 
     <!-- Footer -->
     <footer class="bg-black py-8 text-center border-t border-gray-800">
