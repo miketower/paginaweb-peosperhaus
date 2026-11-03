@@ -52,10 +52,16 @@ y guarda una solicitud con estado `pendiente`. No crea cuentas ni envía correos
 
    El servidor estático de Python no ejecuta PHP. En producción usa un servidor
    con PHP, HTTPS y errores ocultos al visitante (`display_errors=Off`). Publica
-   únicamente `index.html`, `logo-prosperhaus.png` y `procesar.php`; mantén el
+   únicamente `index.html`, `logo-prosperhaus.png`, `formulario.js` y `procesar.php`; mantén el
    script SQL y los documentos fuera de la carpeta pública.
 
-El procesador responde con HTML y HTTP 201 al guardar, 422 para datos no válidos,
+El formulario se envía sin salir de la página y muestra un diálogo de confirmación
+o error. Durante el envío bloquea el botón; solo limpia los campos al confirmar
+que se guardaron. La ventana admite teclado y respeta movimiento reducido.
+No requiere librerías ni CDN adicionales. Sin JavaScript conserva el envío HTML.
+
+El procesador responde con JSON si se solicita `Accept: application/json`, o HTML
+para el envío tradicional, y HTTP 201 al guardar, 422 para datos no válidos,
 405 para métodos distintos de POST y 503 si falla la base de datos. Guarda las
 fechas en UTC y usa consultas preparadas. Cada envío válido crea una solicitud;
 no se impone unicidad por correo ni se deduplican reenvíos.

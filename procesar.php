@@ -10,6 +10,15 @@ header("Content-Security-Policy: default-src 'none'; base-uri 'none'; frame-ance
 function responder(int $codigo, string $titulo, string $mensaje): never
 {
     http_response_code($codigo);
+    if (str_contains($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json')) {
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode([
+            'ok' => $codigo >= 200 && $codigo < 300,
+            'titulo' => $titulo,
+            'mensaje' => $mensaje,
+        ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+        exit;
+    }
     $titulo = htmlspecialchars($titulo, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     $mensaje = htmlspecialchars($mensaje, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     echo '<!doctype html><html lang="es"><head><meta charset="utf-8">'

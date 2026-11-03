@@ -10,9 +10,64 @@
             scroll-padding-top: 6rem;
         }
 
+        .solicitud-dialog {
+            box-sizing: border-box;
+            width: min(28rem, calc(100% - 2rem));
+            max-height: calc(100% - 2rem);
+            overflow-y: auto;
+            margin: auto;
+            padding: 2.5rem 2rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 1.5rem;
+            background: #fff;
+            color: #111827;
+            text-align: center;
+            font-family: system-ui, sans-serif;
+            box-shadow: 0 24px 80px #0003;
+        }
+
+        .solicitud-dialog::backdrop { background: #111827b3; }
+        .solicitud-dialog .resultado-icono {
+            display: grid;
+            place-items: center;
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .solicitud-dialog[data-estado="exito"] .resultado-icono {
+            background: #dcfce7;
+            color: #15803d;
+        }
+        .solicitud-dialog h2 { margin: 0 0 .75rem; font-size: 1.6rem; font-weight: 700; }
+        .solicitud-dialog p { margin: 0 0 1.75rem; color: #4b5563; line-height: 1.65; }
+        .solicitud-dialog button {
+            width: 100%;
+            padding: .9rem 1rem;
+            border: 0;
+            border-radius: .75rem;
+            background: #111827;
+            color: #fff;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .solicitud-dialog button:hover { background: #374151; }
+        .solicitud-dialog button:focus-visible { outline: 3px solid #eab308; outline-offset: 4px; }
+        #formulario-incorporacion button:disabled { opacity: .65; cursor: wait; }
+
         @media (prefers-reduced-motion: no-preference) {
             html {
                 scroll-behavior: smooth;
+            }
+            .solicitud-dialog[open] { animation: aparecer .2s ease-out; }
+            @keyframes aparecer {
+                from { opacity: 0; transform: translateY(12px); }
+                to { opacity: 1; transform: translateY(0); }
             }
         }
     </style>
@@ -230,7 +285,7 @@
             <h2 class="text-4xl font-bold mb-4">¿Estás listo para crecer 10x?</h2>
             <p class="text-gray-900 font-medium mb-10">Si compartes la visión de conectar, dar, construir en unidad y activar una prosperidad integral, da el siguiente paso. Cuéntanos quién eres, qué buscas desarrollar y qué valor te gustaría aportar a la comunidad.</p>
             
-            <form action="procesar.php" method="POST" class="bg-white rounded-lg p-8 text-left text-gray-800 shadow-xl">
+            <form id="formulario-incorporacion" action="procesar.php" method="POST" class="bg-white rounded-lg p-8 text-left text-gray-800 shadow-xl">
                 <div class="mb-4">
                     <label class="block text-sm font-bold mb-1">Nombre completo *</label>
                     <input type="text" name="nombre_completo" required class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-yellow-500 bg-gray-50">
@@ -260,6 +315,16 @@
             </form>
         </div>
     </section>
+
+    <dialog id="resultado-solicitud" class="solicitud-dialog" aria-labelledby="resultado-titulo" aria-describedby="resultado-mensaje">
+        <div id="resultado-icono" class="resultado-icono" aria-hidden="true"></div>
+        <h2 id="resultado-titulo"></h2>
+        <p id="resultado-mensaje"></p>
+        <form method="dialog">
+            <button type="submit" autofocus>Entendido</button>
+        </form>
+    </dialog>
+    <script src="formulario.js" defer></script>
 
     <!-- Footer -->
     <footer class="bg-black py-8 text-center border-t border-gray-800">
