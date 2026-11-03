@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// Las credenciales se configuran en el servidor, nunca en el HTML o en Git.
+// Valores locales para MAMP; las variables de entorno permiten cambiarlos.
 header('Content-Type: text/html; charset=UTF-8');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
@@ -60,12 +60,12 @@ if (($_POST['autorizacion'] ?? null) !== 'on') {
 }
 
 try {
-    $host = getenv('DB_HOST') ?: '127.0.0.1';
+    $host = getenv('DB_HOST') ?: 'localhost';
     $puerto = getenv('DB_PORT') ?: '3306';
     $base = getenv('DB_NAME') ?: 'prosperhaus';
-    $usuario = getenv('DB_USER');
-    $clave = getenv('DB_PASSWORD');
-    if ($usuario === false || $usuario === '' || $clave === false
+    $usuario = getenv('DB_USER') === false ? 'root' : getenv('DB_USER');
+    $clave = getenv('DB_PASSWORD') === false ? '' : getenv('DB_PASSWORD');
+    if ($usuario === ''
         || !ctype_digit($puerto) || (int) $puerto < 1 || (int) $puerto > 65535
         || preg_match('/[;\x00-\x20]/', $host)
         || !preg_match('/^[A-Za-z0-9_]+$/D', $base)) {

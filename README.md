@@ -18,20 +18,27 @@ y guarda una solicitud con estado `pendiente`. No crea cuentas ni envía correos
    Para hosting con una base ya asignada, selecciona esa base e importa solo
    `CREATE TABLE`, omitiendo `CREATE DATABASE` y `USE`.
 
-2. Crea una cuenta de aplicación en MySQL, con contraseña propia y permiso
+2. Para MAMP local, la conexión predeterminada es `localhost`, base `prosperhaus`,
+   usuario `root` y contraseña vacía. No necesitas definir variables de entorno.
+   Importa primero `database.sql` y abre el sitio desde el servidor PHP de MAMP.
+   Con `localhost`, PDO MySQL utiliza el socket configurado en PHP; si no conecta,
+   comprueba el socket MySQL en MAMP y su configuración de PHP. Para conectar por
+   TCP usa `DB_HOST=127.0.0.1` y `DB_PORT` con el puerto real de MySQL en MAMP.
+
+   Para producción, crea una cuenta de aplicación en MySQL, con contraseña propia y permiso
    `INSERT` únicamente sobre `prosperhaus.solicitudes_incorporacion`. Restringe
    su host al servidor PHP. Usa otra cuenta para consultar o revisar solicitudes.
-   No uses la cuenta root en la aplicación.
+   No uses la cuenta root en producción.
 
 3. Configura estas variables en el proceso PHP o en el panel del hosting:
 
    | Variable | Valor |
    | --- | --- |
-   | `DB_HOST` | Host MySQL; por defecto `127.0.0.1` |
+   | `DB_HOST` | Host MySQL; por defecto `localhost` |
    | `DB_PORT` | Puerto MySQL; por defecto `3306` |
    | `DB_NAME` | Base de datos; por defecto `prosperhaus` |
-   | `DB_USER` | Usuario de aplicación, obligatorio |
-   | `DB_PASSWORD` | Contraseña de aplicación, obligatoria |
+   | `DB_USER` | Por defecto `root` para MAMP local |
+   | `DB_PASSWORD` | Por defecto vacía para MAMP local |
 
    El código lee el entorno con `getenv`; no carga archivos `.env`.
    Guarda las credenciales fuera de Git y de la carpeta pública.
