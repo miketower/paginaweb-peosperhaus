@@ -28,6 +28,7 @@
     <meta name="twitter:title" content="Prosperhaus | Comunidad, negocios y prosperidad en unidad">
     <meta name="twitter:description" content="Conecta talentos, relaciones y oportunidades con Prosperhaus. Descubre nuestra comunidad, el Plan Unidad 10X y soluciones de capital humano para tu empresa.">
     <link rel="icon" type="image/png" href="logo-prosperhaus.png">
+    <link rel="preload" as="image" type="image/webp" href="hero-comunidad.webp" fetchpriority="high">
 
     <script type="application/ld+json">
     {
@@ -135,8 +136,11 @@
             inset: -6rem -2rem;
             z-index: -1;
             pointer-events: none;
-            background: radial-gradient(ellipse at 85% 15%, #eab30820, transparent 55%),
-                        radial-gradient(ellipse at 10% 85%, #eab30810, transparent 45%);
+            background-image: linear-gradient(180deg, #ffffffc9 0%, #ffffffe6 55%, #fff 100%),
+                              url("hero-comunidad.webp");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         @media (prefers-reduced-motion: no-preference) {
