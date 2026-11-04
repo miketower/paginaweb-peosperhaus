@@ -54,6 +54,8 @@ y guarda una solicitud con estado `pendiente`. No crea cuentas ni envía correos
    con PHP, HTTPS y errores ocultos al visitante (`display_errors=Off`). Publica
    únicamente `index.html`, `logo-prosperhaus.png`, `hero-comunidad.webp`, `formulario.js`, `animaciones.js`, `menu.js` y `procesar.php`; mantén el
    script SQL y los documentos fuera de la carpeta pública.
+   Incluye también `favicon.ico`, `favicon-32.png`, `favicon-192.png` y
+   `apple-touch-icon.png` para el icono del navegador y los accesos directos móviles.
 
 El formulario se envía sin salir de la página y muestra un diálogo de confirmación
 o error. Durante el envío bloquea el botón; solo limpia los campos al confirmar
