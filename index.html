@@ -125,6 +125,60 @@
         .solicitud-dialog button:focus-visible { outline: 3px solid #eab308; outline-offset: 4px; }
         #formulario-incorporacion button:disabled { opacity: .65; cursor: wait; }
 
+        #cabecera { position: fixed; inset: 0 0 auto; z-index: 50; background: #000; }
+        #cabecera > div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        #cabecera img { width: auto; height: 40px; }
+        .menu-principal { display: flex; align-items: center; gap: 1.25rem; color: #d1d5db; font-size: .875rem; }
+        :where(.menu-principal a) { color: inherit; text-decoration: none; }
+        .menu-toggle { display: none; }
+        .menu-toggle:focus-visible, .menu-principal a:focus-visible {
+            outline: 2px solid #eab308;
+            outline-offset: 4px;
+        }
+        @media (max-width: 1279px) {
+            .menu-principal {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: .25rem;
+                padding: 1rem;
+                max-height: calc(100dvh - 72px);
+                overflow-y: auto;
+                background: #090909;
+                border-top: 1px solid #374151;
+                box-shadow: 0 16px 24px #0003;
+            }
+            .menu-principal a { padding: .8rem 1rem; border-radius: .5rem; }
+            .menu-listo .menu-principal { display: none; }
+            .menu-listo.menu-abierto .menu-principal { display: flex; }
+            .menu-toggle:not([hidden]) {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                height: 44px;
+                border: 1px solid #4b5563;
+                border-radius: .5rem;
+                background: transparent;
+                color: #fff;
+                cursor: pointer;
+            }
+            .menu-toggle svg { width: 24px; height: 24px; }
+            .menu-toggle .icono-cerrar { display: none; }
+            .menu-toggle[aria-expanded="true"] .icono-abrir { display: none; }
+            .menu-toggle[aria-expanded="true"] .icono-cerrar { display: block; }
+        }
+
         #inicio {
             position: relative;
             isolation: isolate;
@@ -204,12 +258,16 @@
 
     <!-- Navegación -->
     <!--[cite: 16, 24] -->
-    <header class="bg-black shadow-sm fixed w-full top-0 z-50">
+    <header id="cabecera" class="bg-black shadow-sm fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
             <div class="flex items-center gap-2">
                 <img src="logo-prosperhaus.png" alt="Prosperhaus — Soy prosperidad en unidad" width="810" height="215" class="h-10 w-auto">
             </div>
-            <nav aria-label="Navegación principal" class="hidden lg:flex space-x-6 text-sm font-medium text-gray-300 items-center">
+            <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal" hidden>
+                <svg class="icono-abrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg class="icono-cerrar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+            </button>
+            <nav id="menu-principal" aria-label="Navegación principal" class="menu-principal text-sm font-medium text-gray-300">
                 <a href="#inicio" class="hover:text-yellow-500 transition">Inicio</a>
                 <a href="#prosperhaus" class="hover:text-yellow-500 transition">Prosperhaus</a>
                 <a href="#soluciones" class="hover:text-yellow-500 transition">Soluciones</a>
@@ -457,6 +515,7 @@
     </dialog>
     <script src="formulario.js" defer></script>
     <script src="animaciones.js" defer></script>
+    <script src="menu.js" defer></script>
 
     <!-- Footer -->
     <footer class="bg-black py-8 text-center border-t border-gray-800">
